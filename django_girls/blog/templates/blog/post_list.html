@@ -2,7 +2,7 @@
 
 {% block content %}
   <div class="card">
-    <div class="card-header">
+    <div class="card-header bg-info text-white">
       <h2>Posts</h2>
     </div>
     <div class="card-body">
@@ -12,8 +12,9 @@
             <h4>{{ post.title }}</h4>
             <p>{{ post.description }}</p>
             <p class="small text-muted">Author: {{ post.author.username }} - {{ post.pub_date }}</p>
-            <a href="{% url 'blog:update_post' pk=post.pk %}" class="btn btn-primary btn-sm">Update</a>
+            <a href="{% url 'blog:update_post' pk=post.pk %}" class="btn btn-warning btn-sm text-white">Update</a>
             <a href="{% url 'blog:delete_post' pk=post.pk %}" class="btn btn-danger btn-sm">Delete</a>
+            <a href="{% url 'blog:read_more' pk=post.pk %}" class="btn btn-primary btn-sm">Read more</a>
           </li>
         {% endfor %}
       </ul>
