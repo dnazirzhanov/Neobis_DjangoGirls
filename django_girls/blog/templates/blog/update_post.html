@@ -1,11 +1,23 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h2>Edit Post</h2>
-  <form method="post" action="">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Save Changes</button>
-  </form>
-  <a href="{% url 'blog:post_list' %}">Back to Posts</a>
+  {% if not_allowed %}
+    <div class="alert alert-danger">
+      You cannot edit this post as it does not belong to you.
+    </div>
+  {% else %}
+    <div class="card">
+      <div class="card-header">
+        <h2>Edit Post</h2>
+      </div>
+      <div class="card-body">
+        <form method="post" action="">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button type="submit" class="btn btn-primary">Save Changes</button>
+        </form>
+      </div>
+    </div>
+    <a href="{% url 'blog:post_list' %}" class="btn btn-secondary mt-2">Back to Posts</a>
+  {% endif %}
 {% endblock %}
