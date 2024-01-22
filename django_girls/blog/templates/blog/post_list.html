@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Posts</h2>
+  <ul>
+    {% for post in posts %}
+      <li>
+        {{ post.title }} - {{ post.description }} ({{ post.pub_date }})
+        <br>
+        Author: {{ post.author }}
+      </li>
+    {% endfor %}
+  </ul>
+  <a href="{% url 'blog:add_post' %}">Add a New Post</a>
+{% endblock %}
