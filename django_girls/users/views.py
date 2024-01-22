@@ -16,3 +16,24 @@ def user_register(request):
     else:
         form = RegistrationForm()
     return render(request, 'users/user_register.html', {'form': form})
+
+def user_login(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                messages.success(request, f'Welcome, {username}!')
+                return redirect('blog:post_list')
+    else:
+        form = AuthenticationForm()
+    return render(request, 'users/user_login.html', {'form': form})
+
+@login_required
+def user_logout(request):
+    logout(request)
+    messages.success(request, 'You have been logged out.')
+    return redirect('blog:post_list')
